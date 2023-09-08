@@ -232,25 +232,10 @@ void Workspace::SigWinchHandler(int signal, siginfo_t* siginfo,
 void Workspace::InitializeLists() {
   window_info info = CursesUtils::get_window_info(stdscr);
 
-  // If the window is too small, don't show the notes panel.
-  int notes_width = info.width < Constants::kMinWidthForNotesView
-                        ? 0
-                        : Constants::kNoteViewSize;
-
   string name = "";
-  ColumnSpec spec("Task:X,N:1,Created:24,Completed:24", false);
-  list_ = new HierarchicalList(name, info.height, info.width - notes_width, 0,
-                               0, spec);
+  ColumnSpec spec("Task:X", false);
+  list_ = new HierarchicalList(name, info.height, info.width, 0, 0, spec);
   list_->SetDatasource(project_);
-
-  if (notes_width) {
-    ColumnSpec notes_spec("Notes:X", false);
-    notes_list_ = new HierarchicalList(name, info.height, notes_width, 0,
-                                       info.width - notes_width, notes_spec);
-    notes_list_->SetDatasource(&notes_source_);
-  } else {
-    notes_list_ = NULL;
-  }
 }
 
 void Workspace::AddTask(Task* t) {
