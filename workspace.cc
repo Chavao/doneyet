@@ -145,7 +145,7 @@ void Workspace::Run() {
         assert(config != NULL);
         if (config->PromptOnDeleteTask()) {
           if (!ListChooser::GetYesNo(
-                  "Are you sure you want to delete this task?", false)) {
+                  "Are you sure you want to delete this task?", true)) {
             break;
           }
         }
