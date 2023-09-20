@@ -444,6 +444,7 @@ void Workspace::ToggleStatus(Task* t) {
         break;
     }
     project_->RecomputeNodeStatus();
+    SaveCurrentProject();
   }
 }
 
@@ -489,6 +490,7 @@ void Workspace::PerformFullListUpdate() {
   project_->RecomputeNodeStatus();
   project_->FilterTasks();
   list_->Update();
+  SaveCurrentProject();
 }
 
 void Workspace::DisplayNotes(Task* t) {
